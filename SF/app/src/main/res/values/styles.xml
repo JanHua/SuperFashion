@@ -1,0 +1,39 @@
+<resources>
+
+    <!-- App整体风格 -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="ToolbarTheme" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <!--<item name="android:actionBarItemBackground">@drawable/toobar_item_background</item>-->
+        <!--<item name="actionBarItemBackground">@drawable/toobar_item_background</item>-->
+    </style>
+
+    <style name="ToolbarPopupTheme" parent="ThemeOverlay.AppCompat.Light">
+        <!--<item name="android:actionBarItemBackground">@drawable/toobar_item_background</item>-->
+        <!--<item name="actionBarItemBackground">@drawable/toobar_item_background</item>-->
+        <!--<item name="android:popupBackground">@drawable/toobar_item_background</item>-->
+    </style>
+
+    <!--顶部栏风格-->
+    <style name="Toolbar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">?attr/actionBarSize</item>
+        <item name="android:background">?attr/colorPrimary</item>
+        <item name="android:theme">@style/ToolbarTheme</item>
+        <item name="popupTheme">@style/ToolbarPopupTheme</item>
+    </style>
+
+    <!--recyclerView 风格-->
+    <style name="StyleRecyclerDefault">
+        <!-- 分割线 颜色-->
+        <item name="android:listDivider">@drawable/divider_bg</item>
+        <!-- 分割线 高度-->
+        <item name="android:dividerHeight">@dimen/dividerHeight_default</item>
+    </style>
+
+</resources>

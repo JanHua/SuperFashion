@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 字体分超大、大、中、小 -->
+    <dimen name="text_larger_super">22dp</dimen>
+    <dimen name="text_larger">16dp</dimen>
+    <dimen name="text_medium">14dp</dimen>
+    <dimen name="text_small">12dp</dimen>
+
+    <!-- recycler 分割线高度 -->
+    <dimen name="dividerHeight_10">10dp</dimen>
+    <dimen name="dividerHeight_default">10dp</dimen>
+
+</resources>

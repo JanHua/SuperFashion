@@ -1,0 +1,140 @@
+***************************************db 简单实用***************************************
+数据库简单实用：
+1.继承DBManager，实现onCreate，onUpgrade方法，onCreate方法中建表，onUpgrade更新表操作。
+2.继承DBManager，getSDB方法获取db进行数据库操作。
+3.继承DbDao,完成db业务处理。
+
+***************************************Sqlite3***************************************
+👌Sqlite3语句：
+参考网址：http://www.jb51.net/article/38550.htm
+http://blog.csdn.net/linchunhua/article/details/7184439
+http://www.sqlite.org/datatype3.html
+>关键字
+limit 偏移量，获取的记录数使用在分页查询
+order by
+having
+group by
+where
+like
+>字段类型
+TEXT    文本
+NUMERIC 数值
+INTEGER 整型
+REAL    小数
+NONE    无类型
+smallint 16位的整数。
+interger 32位的整数。
+decimal(p,s) 精确值p是指全部有几个十进制数,s是指小数点后可以有几位小数。如果没有特别指定，则系统会默认为p=5 s=0 。
+float  32位元的实数。
+double  64位元的实数。
+char(n)  n 长度的字串，n不能超过 254。
+varchar(n) 长度不固定且其最大长度为 n 的字串，n不能超过 4000。
+graphic(n) 和 char(n) 一样，不过其单位是两个字节， n不能超过127。这个形态是为了支持两个字节长度的字体，如中文字。
+vargraphic(n) 可变长度且其最大长度为n的双字元字串，n不能超过2000
+date  包含了 年份、月份、日期。
+time  包含了 小时、分钟、秒。
+timestamp 包含了 年、月、日、时、分、秒、千分之一秒。
+
+>表的操作
+一、创建
+1.创建一个表
+create table person (personId integer primary  key auto increment ,name varchar(20));
+
+二、删除
+1.删除一个存在的表
+drop table if exists person
+drop table_name;     删除表；
+drop index_name;     删除索引；
+
+三、更新
+1.表里增加一个字段
+alter table person add phone archer(12) null
+SQLite 仅仅支持 ALTER TABLE 语句的一部分功能，我们可以用 ALTER TABLE 语句来更改一个表的名字，也可向表中增加一个字段（列），但是我们不能删除一个已经存在的字段，或者更改一个已经存在的字段的名称、数据类型、限定符等等。
+
+改变表名 - ALTER TABLE 旧表名 RENAME TO 新表名
+
+增加一列 - ALTER TABLE 表名 ADD COLUMN 列名 数据类型
+
+解决方式：
+
+1、将表明改为临时表
+
+alter table ‘student1’ rename to student_old_1;
+
+2、创建新表
+
+create table ‘student1’ (id integer primary key autoIncrement ,name text);
+
+3.导入数据
+
+insert into ’student’ (‘id’,’name’) select ‘id’,’title’ from ’student_old_1';
+
+
+>数据的操作：
+一、创建（Create）
+
+二、删除(Delete)
+1.删除一条数据 personId = ?
+delete from person where personId = ?;
+
+
+三、更新(Update)
+1.更新一条数据 personId = ?的phone & name 字段
+update person set phone=?,name = ? where personId = ?;
+
+四、插入(Insert)
+1.往表里插入一条数据
+insert into person(name,age) values (‘名字’,4)
+
+五、查询(Select or Retrieve)
+1.查询一个表的所有数据
+select * from person
+2.查询一个加条件的表数据  like = 字段含有
+select * from person where userName like '%name%’;
+select * form person where name like %王% and age=21
+3.查询perosnId = ？的数据 (db.rawQuery())
+select * from person where personId = ?;
+4.得到记录数 person表数据条数
+select count(*) from person；
+5.分页查询数据 page,count
+select * from person limit ?,?;
+
+
+***************************************例子***************************************
+/*
+ * 创建用户表 -- 用例
+ */
+private void createPersonTable(SQLiteDatabase db) {
+    StringBuilder builder = new StringBuilder();
+    builder.append("CREATE TABLE IF NOT EXISTS _person");
+    builder.append("(");
+    builder.append("id INTEGER PRIMARY KEY AUTOINCREMENT,");
+    builder.append("teacherId VARCHAR UNIQUE,");
+    builder.append("userName VARCHAR,");
+    builder.append("teacherName VARCHAR");
+    builder.append(");");
+    db.execSQL(builder.toString());
+}
+
+/**
+ * 更新用户表 增加字段 1.4.0
+ *
+ * @param db
+ */
+private void updatePersonTable(SQLiteDatabase db) {
+    StringBuilder builder = new StringBuilder();
+    db.execSQL("alter table _person rename to _temp_person");
+    createPersonTable(db);
+    db.execSQL("insert into _person select *,'','','' from _temp_person");
+    db.execSQL("drop table _temp_person");
+}
+
+/**
+ * 删除一个表(包括数据)
+ *
+ * @param db
+ * @param tableName
+ */
+private void dropTable(SQLiteDatabase db, String tableName) {
+    db.execSQL(new StringBuilder().append("DROP TABLE IF EXISTS ").append(tableName).toString());
+}

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App共有-->
+    <item name="pb.appBarLayout" type="id" />
+    <item name="pb.toolbar" type="id" />
+    <item name="pb.progressbar.message" type="id" />
+    <item name="pb.progressbar.load" type="id" />
+
+</resources>

@@ -1,0 +1,70 @@
+RecyclerView 介绍与使用
+
+一.导入support-v7对其进行使用,design 依赖了support7,直接添加design-23.x即可。
+支持，普通ListView/GridView/StaggeredGrid(瀑布流)
+
+二.官方的介绍，该控件用于在有限的窗口中展示大量数据集，其实这样功能的控件我们并不陌生，例如：ListView、GridView。
+那么有了ListView、GridView为什么还需要RecyclerView这样的控件呢？
+整体上看RecyclerView架构，提供了一种插拔式的体验，高度的解耦，异常的灵活，通过设置它提供的不同LayoutManager，ItemDecoration , ItemAnimator实现令人瞠目的效果。
+
+1.你想要控制其显示的方式，请通过布局管理器LayoutManager
+2.你想要控制Item间的间隔（可绘制），请通过ItemDecoration
+3.你想要控制Item增删的动画，请通过ItemAnimator
+4.你想要控制点击、长按事件，请自己写（擦，这点尼玛。）
+
+三.基本使用:
+mRecyclerView = findView(R.id.id_recyclerView);
+//设置布局管理器
+mRecyclerView.setLayoutManager(layout);
+//设置adapter
+mRecyclerView.setAdapter(adapter)
+//设置Item增加、移除动画
+mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+//添加分割线
+mRecyclerView.addItemDecoration(new DividerItemDecoration(
+                getActivity(), DividerItemDecoration.HORIZONTAL_LIST));
+
+四.适配器使用:
+继承RecyclerView.Adapter 实现3个方法即可。
+
+1.创建Holder View
+@Override
+public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
+ MyViewHolder holder = new MyViewHolder(LayoutInflater.from(
+                    HomeActivity.this).inflate(R.layout.item_home, parent,
+                    false));
+            return holder;
+}
+
+2.绑定holder View,填充数据
+@Override
+public void onBindViewHolder(MyViewHolder holder, int position)
+{
+    holder.tv.setText(mData.get(position));
+}
+
+3.返回数据总数量
+@Override
+public int getItemCount()
+{
+    return mData.size();
+}
+
+五.Recycler xml布局风格配置
+// 分割线高度
+android:dividerHeight="10dp"
+// 分割线颜色
+android:listDivider="@drawable/divider_bg"
+
+六.LayoutManager介绍
+RecyclerView.LayoutManager，这是一个抽象类，好在系统提供了3个实现类：
+LinearLayoutManager 现行管理器，支持横向、纵向
+GridLayoutManager 网格布局管理器
+StaggeredGridLayoutManager 瀑布就式布局管理器
+
+七.ItemAnimator介绍
+ItemAnimator也是一个抽象类，好在系统为我们提供了一种默认的实现类，期待系统多
+添加些默认的实现。
+借助默认的实现，当Item添加和移除的时候，添加动画效果很简单:
+// 设置item动画
+mRecyclerView.setItemAnimator(new DefaultItemAnimator());

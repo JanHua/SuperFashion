@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">SuperFashion</string>
+
+    <!--ListView 列表状态-->
+    <string name="listView.no.data.message">加载完成</string>
+    <string name="listView.more.data.message">查看更多</string>
+    <string name="listView.hint.more.data.message">松开载入更多</string>
+
+    <!--缓存框-->
+    <string name="public.progress.loading">加载中\u2026</string>
+</resources>
