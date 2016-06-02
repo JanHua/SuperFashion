@@ -19,7 +19,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Scroller;
 
-import com.sf.constants.EnumConst.HeadShowState;
+import com.sf.constants.ConstEnum.HeadShowState;
 
 /**
  * 上拉加载-下拉刷新

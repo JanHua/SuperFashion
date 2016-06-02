@@ -304,15 +304,15 @@ public class HttpUtil {
         MultipartBuilder multipartBuilder = new MultipartBuilder();
         multipartBuilder.type(MultipartBuilder.FORM);
         // 文字信息加载
-        StringBuffer sbffer = new StringBuffer();
+        StringBuffer sbf = new StringBuffer();
         if (valueMap != null) {
             for (Entry<String, String> entry : valueMap.entrySet()) {
                 multipartBuilder.addFormDataPart(entry.getKey(), entry.getValue());
-                sbffer.append(entry.getKey() + "=");
+                sbf.append(entry.getKey() + "=");
                 if (entry.getValue() == null) {
-                    sbffer.append("null,");
+                    sbf.append("null,");
                 } else {
-                    sbffer.append(entry.getValue() + ",");
+                    sbf.append(entry.getValue() + ",");
                 }
             }
         }
@@ -324,11 +324,11 @@ public class HttpUtil {
             }
 
             ++cont;
-            sbffer.append("File" + cont + file.getName());
+            sbf.append("File" + cont + file.getName());
             multipartBuilder.addPart(RequestBody.create(MultipartBuilder.FORM, file));
         }
 
-        System.out.println("httpPost - " + sbffer.toString());
+        System.out.println("httpPost - " + sbf.toString());
         Request.Builder builder = new Request.Builder().url(url).post(multipartBuilder.build());
         if (headers != null) {
             builder.headers(headers);

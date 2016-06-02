@@ -14,11 +14,11 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.sf.constants.EnumConst;
+import com.sf.constants.ConstEnum;
 
 
 import com.sf.R;
-import com.sf.constants.EnumConst.HeadShowState;
+import com.sf.constants.ConstEnum.HeadShowState;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -45,7 +45,7 @@ public class HeadView extends LinearLayout {
     private final int ROTATE_ANIM_DURATION = 180;
 
     private int defaultHeight; // 默认高度
-    private EnumConst.HeadShowState defaultHeadState = EnumConst.HeadShowState.defaultState; // 默认状态
+    private ConstEnum.HeadShowState defaultHeadState = ConstEnum.HeadShowState.defaultState; // 默认状态
 
     public HeadView(Context context) {
         super(context);
@@ -143,7 +143,7 @@ public class HeadView extends LinearLayout {
     /*
      * 刷新状态
      */
-    public void updataViewShowState(EnumConst.HeadShowState showState) {
+    public void updataViewShowState(ConstEnum.HeadShowState showState) {
         if (showState == defaultHeadState) { // 只有状态改变时才更新
             return;
         }
@@ -151,7 +151,7 @@ public class HeadView extends LinearLayout {
         /**
          * 先设置当前状态
          */
-        if (showState == EnumConst.HeadShowState.loadingState) {
+        if (showState == ConstEnum.HeadShowState.loadingState) {
             arrows_img.clearAnimation();
             arrows_img.setVisibility(View.INVISIBLE);
             progressbar.setVisibility(View.VISIBLE);
@@ -165,10 +165,10 @@ public class HeadView extends LinearLayout {
          */
         switch (showState) {
             case defaultState: {
-                if (defaultHeadState == EnumConst.HeadShowState.beyondState) {
+                if (defaultHeadState == ConstEnum.HeadShowState.beyondState) {
                     arrows_img.startAnimation(mRotateDownAnim);
                 }
-                if (defaultHeadState == EnumConst.HeadShowState.loadingState) {
+                if (defaultHeadState == ConstEnum.HeadShowState.loadingState) {
                     arrows_img.clearAnimation();
                 }
 
@@ -176,7 +176,7 @@ public class HeadView extends LinearLayout {
                 break;
             }
             case beyondState: {
-                if (defaultHeadState != EnumConst.HeadShowState.beyondState) {
+                if (defaultHeadState != ConstEnum.HeadShowState.beyondState) {
                     arrows_img.clearAnimation();
                     arrows_img.startAnimation(mRotateUpAnim);
                     onBeyondState();
